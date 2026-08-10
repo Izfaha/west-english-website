@@ -1,69 +1,178 @@
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
+    <main className="min-h-screen bg-[#72c2b3]">
+      
+      <section className="relative w-full h-[45vh] sm:h-[50vh] md:h-[550px]">
         <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
+          src="/images/homepage-top.webp"
+          alt="Siswa WEST Kampung Inggris"
+          fill
           priority
+          className="object-cover"
         />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+        
+        <div className="absolute -bottom-10 sm:-bottom-12 left-4 sm:left-6 md:left-20 w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 bg-[#f2790f] rounded-full flex items-center justify-center text-white font-bold text-center p-4 sm:p-6 shadow-xl z-20 border-4 border-[#72c2b3]">
+          <p className="text-xs sm:text-[15px] md:text-lg leading-snug">
+            Dapatkan Potongan Harga dengan VOUCHER
           </p>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+      </section>
+
+      <section className="bg-white py-4 sm:py-6 relative z-10 w-full text-center shadow-sm">
+        <h2 className="text-[#1b7a70] text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold tracking-wide px-4">
+          Let&apos;s learning with WEST Kampung Inggris
+        </h2>
+      </section>
+
+      <section id="program" className="py-12 sm:py-16 md:py-20 px-4 sm:px-6 max-w-7xl mx-auto scroll-mt-24">
+        <h2 className="text-white text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-8 sm:mb-12 tracking-wide drop-shadow-md">
+          Kelas Online Reguler
+        </h2>
+        
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
+          <div className="bg-[#eef8f6] rounded-2xl p-6 sm:p-8 flex flex-col items-center text-center shadow-lg border-b-8 border-white">
+            <h3 className="text-[#1b7a70] text-xl sm:text-2xl font-bold mb-2">Kids / Month</h3>
+            <p className="text-[#f2790f] text-xl sm:text-2xl font-bold mb-4 sm:mb-6">Rp.250,000</p>
+            <div className="text-[#2d4a46] space-y-1 mb-6 sm:mb-8 font-medium text-sm sm:text-base">
+              <p>E-Modul</p>
+              <p>20x virtual meeting</p>
+              <p>Pre basic/Basic/</p>
+              <p>Intermediate/Advance</p>
+              <p>Speaking Skill</p>
+              <p>Spoken Structure</p>
+              <p>max. 10 students</p>
+              <p>E-Certificate</p>
+            </div>
+            <Link href="/pendaftaran" className="mt-auto bg-[#f2790f] hover:bg-[#d96b0b] text-white font-bold px-8 sm:px-10 py-2.5 rounded-lg shadow-md transition-colors">
+              Daftar
+            </Link>
+          </div>
+
+          <div className="bg-[#eef8f6] rounded-2xl p-6 sm:p-8 flex flex-col items-center text-center shadow-lg border-b-8 border-white">
+            <h3 className="text-[#1b7a70] text-xl sm:text-2xl font-bold mb-2">Teenager / Month</h3>
+            <p className="text-[#f2790f] text-xl sm:text-2xl font-bold mb-4 sm:mb-6">Rp.250,000</p>
+            <div className="text-[#2d4a46] space-y-1 mb-6 sm:mb-8 font-medium text-sm sm:text-base">
+              <p>E-Modul</p>
+              <p>20x virtual meeting</p>
+              <p>Pre basic/Basic/</p>
+              <p>Intermediate/Advance</p>
+              <p>Speaking Skill</p>
+              <p>Spoken Structure</p>
+              <p>max. 10 students</p>
+              <p>E-Certificate</p>
+            </div>
+            <Link href="/pendaftaran" className="mt-auto bg-[#f2790f] hover:bg-[#d96b0b] text-white font-bold px-8 sm:px-10 py-2.5 rounded-lg shadow-md transition-colors">
+              Daftar
+            </Link>
+          </div>
+
+          <div className="bg-[#eef8f6] rounded-2xl p-6 sm:p-8 flex flex-col items-center text-center shadow-lg border-b-8 border-white">
+            <h3 className="text-[#1b7a70] text-xl sm:text-2xl font-bold mb-2">Adult / Month</h3>
+            <p className="text-[#f2790f] text-xl sm:text-2xl font-bold mb-4 sm:mb-6">Rp.250,000</p>
+            <div className="text-[#2d4a46] space-y-1 mb-6 sm:mb-8 font-medium text-sm sm:text-base">
+              <p>E-Modul</p>
+              <p>20x virtual meeting</p>
+              <p>Pre basic/Basic/</p>
+              <p>Intermediate/Advance</p>
+              <p>Speaking Skill</p>
+              <p>Spoken Structure</p>
+              <p>max. 10 students</p>
+              <p>E-Certificate</p>
+            </div>
+            <Link href="/pendaftaran" className="mt-auto bg-[#f2790f] hover:bg-[#d96b0b] text-white font-bold px-8 sm:px-10 py-2.5 rounded-lg shadow-md transition-colors">
+              Daftar
+            </Link>
+          </div>
         </div>
-      </main>
-    </div>
+      </section>
+
+      <section className="py-8 sm:py-12 px-4 sm:px-6 max-w-7xl mx-auto mb-10">
+        <h2 className="text-white text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-8 sm:mb-12 tracking-wide drop-shadow-md">
+          Kelas Online Private
+        </h2>
+        
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
+          <div className="bg-[#eef8f6] rounded-2xl p-6 sm:p-8 flex flex-col items-center text-center shadow-lg border-b-8 border-white">
+            <h3 className="text-[#1b7a70] text-xl sm:text-2xl font-bold mb-2">Kids / 2 Weeks</h3>
+            <p className="text-[#f2790f] text-xl sm:text-2xl font-bold mb-4 sm:mb-6">Rp.165,000</p>
+            <div className="text-[#2d4a46] space-y-1 mb-6 sm:mb-8 font-medium text-sm sm:text-base">
+              <p>E-Modul</p>
+              <p>10x virtual meeting</p>
+              <p>Pre basic/Basic/</p>
+              <p>Intermediate/Advance</p>
+              <p>Speaking Skill</p>
+              <p>Spoken Structure</p>
+              <p>max. 10 students</p>
+              <p>E-Certificate</p>
+            </div>
+            <Link href="/pendaftaran" className="mt-auto bg-[#f2790f] hover:bg-[#d96b0b] text-white font-bold px-8 sm:px-10 py-2.5 rounded-lg shadow-md transition-colors">
+              Daftar
+            </Link>
+          </div>
+
+          <div className="bg-[#eef8f6] rounded-2xl p-6 sm:p-8 flex flex-col items-center text-center shadow-lg border-b-8 border-white">
+            <h3 className="text-[#1b7a70] text-xl sm:text-2xl font-bold mb-2">Teenager / 2 Weeks</h3>
+            <p className="text-[#f2790f] text-xl sm:text-2xl font-bold mb-4 sm:mb-6">Rp.165,000</p>
+            <div className="text-[#2d4a46] space-y-1 mb-6 sm:mb-8 font-medium text-sm sm:text-base">
+              <p>E-Modul</p>
+              <p>10x virtual meeting</p>
+              <p>Basic/ Intermediate/</p>
+              <p>Advance</p>
+              <p>Speaking Skill</p>
+              <p>Spoken Structure</p>
+              <p>max. 10 students</p>
+              <p>E-Certificate</p>
+            </div>
+            <Link href="/pendaftaran" className="mt-auto bg-[#f2790f] hover:bg-[#d96b0b] text-white font-bold px-8 sm:px-10 py-2.5 rounded-lg shadow-md transition-colors">
+              Daftar
+            </Link>
+          </div>
+
+          <div className="bg-[#eef8f6] rounded-2xl p-6 sm:p-8 flex flex-col items-center text-center shadow-lg border-b-8 border-white">
+            <h3 className="text-[#1b7a70] text-xl sm:text-2xl font-bold mb-2">Adult / 2 Weeks</h3>
+            <p className="text-[#f2790f] text-xl sm:text-2xl font-bold mb-4 sm:mb-6">Rp.165,000</p>
+            <div className="text-[#2d4a46] space-y-1 mb-6 sm:mb-8 font-medium text-sm sm:text-base">
+              <p>E-Modul</p>
+              <p>10x virtual meeting</p>
+              <p>Basic/ Intermediate/</p>
+              <p>Advance</p>
+              <p>Speaking Skill</p>
+              <p>Spoken Structure</p>
+              <p>max. 10 students</p>
+              <p>E-Certificate</p>
+            </div>
+            <Link href="/pendaftaran" className="mt-auto bg-[#f2790f] hover:bg-[#d96b0b] text-white font-bold px-8 sm:px-10 py-2.5 rounded-lg shadow-md transition-colors">
+              Daftar
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      <section 
+        className="bg-[#65b0a3] pt-20 sm:pt-28 pb-24 sm:pb-32 px-4 sm:px-6" 
+        style={{ clipPath: 'polygon(0 8%, 100% 0, 100% 100%, 0 100%)' }}
+      >
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-[#135c52] text-2xl sm:text-3xl md:text-5xl font-bold text-center mb-6 sm:mb-8">
+            WEST Kampung Inggris
+          </h2>
+          <p className="text-black text-base sm:text-lg md:text-xl leading-relaxed text-justify md:text-center">
+            WEST Kampung Inggris WEST adalah sebuah lembaga kursus dan
+            pelatihan Bahasa Inggris yang berada di Kampung Inggris Pare,
+            Kediri. Berbekal pengalaman di lapangan selama lebih dari 10
+            tahun, kami telah menyusun dan mempelajari cara-cara yang
+            efektif dan efisien untuk membantu siswa mempelajari Bahasa
+            Inggris. Dengan konsep Fun English Learning ditambah metode
+            terkini yang selalu dikembangkan dan diintegrasikan dengan
+            system belajar ala Kampung Inggris, siswa akan lebih mudah dan
+            cepat dalam menguasai bahasa Inggris bersama kami.
+          </p>
+        </div>
+      </section>
+
+    </main>
   );
 }
