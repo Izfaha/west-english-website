@@ -21,17 +21,30 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="bg-white py-4 sm:py-6 relative z-10 w-full text-center shadow-sm">
-        <h2 className="text-[#1b7a70] text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold tracking-wide px-4">
-          Let&apos;s learning with WEST Kampung Inggris
-        </h2>
+      <section className="bg-white py-4 sm:py-6 relative z-10 w-full overflow-hidden shadow-sm">
+        <div className="animate-marquee whitespace-nowrap">
+          <span className="text-[#1b7a70] text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold tracking-wide px-8 sm:px-16 md:px-24">
+            Let&apos;s learn with WEST Kampung Inggris
+          </span>
+          <span className="hidden sm:inline text-[#1b7a70] text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold tracking-wide px-8 sm:px-16 md:px-24">
+            Let&apos;s learn with WEST Kampung Inggris
+          </span>
+          <span className="hidden sm:inline text-[#1b7a70] text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold tracking-wide px-8 sm:px-16 md:px-24">
+            Let&apos;s learn with WEST Kampung Inggris
+          </span>
+          <span className="hidden sm:inline text-[#1b7a70] text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold tracking-wide px-8 sm:px-16 md:px-24">
+            Let&apos;s learn with WEST Kampung Inggris
+          </span>
+        </div>
       </section>
 
+      {/* ========== Kelas Online Reguler ========== */}
       <section id="program" className="py-12 sm:py-16 md:py-20 px-4 sm:px-6 max-w-7xl mx-auto scroll-mt-24">
-        <h2 className="text-white text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-8 sm:mb-12 tracking-wide drop-shadow-md">
+        <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-center mb-8 sm:mb-12 pb-2 tracking-wide drop-shadow-md bg-gradient-to-r from-white via-amber-300 to-white bg-clip-text text-transparent">
           Kelas Online Reguler
         </h2>
         
+        {/* kelas Kids / Month*/}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
           <div className="bg-[#eef8f6] rounded-2xl p-6 sm:p-8 flex flex-col items-center text-center shadow-lg border-b-8 border-white">
             <h3 className="text-[#1b7a70] text-xl sm:text-2xl font-bold mb-2">Kids / Month</h3>
@@ -51,6 +64,7 @@ export default function Home() {
             </Link>
           </div>
 
+          {/* kelas Teenager / Month*/}
           <div className="bg-[#eef8f6] rounded-2xl p-6 sm:p-8 flex flex-col items-center text-center shadow-lg border-b-8 border-white">
             <h3 className="text-[#1b7a70] text-xl sm:text-2xl font-bold mb-2">Teenager / Month</h3>
             <p className="text-[#f2790f] text-xl sm:text-2xl font-bold mb-4 sm:mb-6">Rp.250,000</p>
@@ -69,6 +83,7 @@ export default function Home() {
             </Link>
           </div>
 
+          {/* kelas  Adult / Month*/}
           <div className="bg-[#eef8f6] rounded-2xl p-6 sm:p-8 flex flex-col items-center text-center shadow-lg border-b-8 border-white">
             <h3 className="text-[#1b7a70] text-xl sm:text-2xl font-bold mb-2">Adult / Month</h3>
             <p className="text-[#f2790f] text-xl sm:text-2xl font-bold mb-4 sm:mb-6">Rp.250,000</p>
@@ -89,8 +104,9 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ========== Kelas Online Private ========== */}
       <section className="py-8 sm:py-12 px-4 sm:px-6 max-w-7xl mx-auto mb-10">
-        <h2 className="text-white text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-8 sm:mb-12 tracking-wide drop-shadow-md">
+        <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-center mb-8 sm:mb-12 pb-2 tracking-wide drop-shadow-md bg-gradient-to-r from-white via-amber-300 to-white bg-clip-text text-transparent">
           Kelas Online Private
         </h2>
         
@@ -119,8 +135,8 @@ export default function Home() {
             <div className="text-[#2d4a46] space-y-1 mb-6 sm:mb-8 font-medium text-sm sm:text-base">
               <p>E-Modul</p>
               <p>10x virtual meeting</p>
-              <p>Basic/ Intermediate/</p>
-              <p>Advance</p>
+              <p>Pre basic/Basic/</p>
+              <p>Intermediate/Advance</p>
               <p>Speaking Skill</p>
               <p>Spoken Structure</p>
               <p>max. 10 students</p>
@@ -137,8 +153,8 @@ export default function Home() {
             <div className="text-[#2d4a46] space-y-1 mb-6 sm:mb-8 font-medium text-sm sm:text-base">
               <p>E-Modul</p>
               <p>10x virtual meeting</p>
-              <p>Basic/ Intermediate/</p>
-              <p>Advance</p>
+              <p>Pre basic/Basic/</p>
+              <p>Intermediate/Advance</p>
               <p>Speaking Skill</p>
               <p>Spoken Structure</p>
               <p>max. 10 students</p>
@@ -156,7 +172,7 @@ export default function Home() {
         style={{ clipPath: 'polygon(0 8%, 100% 0, 100% 100%, 0 100%)' }}
       >
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-[#135c52] text-2xl sm:text-3xl md:text-5xl font-bold text-center mb-6 sm:mb-8">
+          <h2 className="text-2xl sm:text-3xl md:text-5xl font-extrabold text-center mb-6 sm:mb-8 pb-2 bg-gradient-to-r from-[#135c52] via-[#0b332d] to-[#135c52] bg-clip-text text-transparent">
             WEST Kampung Inggris
           </h2>
           <p className="text-black text-base sm:text-lg md:text-xl leading-relaxed text-justify md:text-center">
