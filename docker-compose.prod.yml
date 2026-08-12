@@ -1,0 +1,66 @@
+services:
+  # frontend service
+  frontend:
+    container_name: west-frontend
+    build: 
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - NEXT_PUBLIC_ADMIN_WA_NUMBER=${NEXT_PUBLIC_ADMIN_WA_NUMBER:?NEXT_PUBLIC_ADMIN_WA_NUMBER is required}
+    restart: unless-stopped
+    environment:
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD:?DB_PASSWORD is required}
+      - DB_NAME=${DB_NAME}
+    depends_on:
+      - db
+    expose:
+      - "3000"
+    networks: 
+      - west-internal-network
+      - reverse-proxy
+  
+  phpmyadmin:
+    image: phpmyadmin
+    container_name: west-phpmyadmin
+    restart: unless-stopped
+    environment:
+      # nama host sama kayak nama service di compose 
+      - PMA_HOST=${DB_HOST}
+      # port harus sama seperti port mariadb 
+      - PMA_PORT=${DB_PORT}
+    ports:
+      - "8008:80"
+    depends_on:
+      - db
+    networks: 
+      - west-internal-network
+
+  # mariadb service for west app
+  db:
+    container_name: west-mariadb
+    build: 
+      context: ./database
+    restart: unless-stopped
+    environment:
+      - MARIADB_ROOT_PASSWORD=${DB_PASSWORD:?DB_PASSWORD is required}
+      - MARIADB_DATABASE=${DB_NAME}
+      - MARIADB_USER=${DB_USER}
+      - MARIADB_PASSWORD=${DB_PASSWORD:?DB_PASSWORD is required}
+    volumes:
+      - db_data_west:/var/lib/mysql
+    networks:
+      - west-internal-network
+
+volumes:
+  db_data_west:
+
+networks:
+  # west-internal-network
+  west-internal-network:
+    internal: true
+  reverse-proxy:
+    external: true
+    name: reverse-proxy
