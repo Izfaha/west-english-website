@@ -26,6 +26,8 @@ export default function PendaftaranForm() {
 
   const [formData, setFormData] = useState({
     nama: "",
+    jenis_kelamin: "",
+    umur: "",
     ttl: "",
     alamat: "",
     wa: "",
@@ -101,7 +103,7 @@ export default function PendaftaranForm() {
   };
 
   const handlePreCheckout = () => {
-    if (!formData.nama || !formData.ttl || !formData.alamat || !formData.wa || !formData.email || !baseProgram || !level) {
+    if (!formData.nama || !formData.jenis_kelamin || !formData.umur || !formData.ttl || !formData.alamat || !formData.wa || !formData.email || !baseProgram || !level) {
       setErrorMessage("Mohon lengkapi semua field formulir pendaftaran terlebih dahulu (kecuali voucher).");
       setIsErrorOpen(true);
       return;
@@ -120,6 +122,8 @@ export default function PendaftaranForm() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           nama: formData.nama,
+          jenis_kelamin: formData.jenis_kelamin,
+          umur: parseInt(formData.umur),
           ttl: formData.ttl,
           alamat: formData.alamat,
           email: formData.email,
@@ -147,7 +151,7 @@ export default function PendaftaranForm() {
         const adminWA = process.env.NEXT_PUBLIC_ADMIN_WA_NUMBER || "6285234567383";
         window.open(`https://wa.me/${adminWA}?text=${encodeURIComponent(message)}`, "_blank");
 
-        setFormData({ nama: "", ttl: "", alamat: "", wa: "", email: "", voucher: "" });
+        setFormData({ nama: "", jenis_kelamin: "", umur: "", ttl: "", alamat: "", wa: "", email: "", voucher: "" });
         setBaseProgram("");
         setLevel("");
         setDiskon(0);
@@ -159,7 +163,7 @@ export default function PendaftaranForm() {
   return (
     <div className="relative bg-[#72c2b3]">
       <div className="bg-white rounded-2xl sm:rounded-[2rem] p-5 sm:p-8 md:p-14 shadow-2xl max-w-3xl mx-auto w-[calc(100%-2rem)] sm:w-full my-6 sm:my-12 border border-gray-100">
-        <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-6 sm:mb-10 tracking-wide font-mono">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-6 sm:mb-10 tracking-wide">
           Form Registrasi
         </h1>
 
@@ -168,11 +172,38 @@ export default function PendaftaranForm() {
             <label className="text-[#1b7a70] font-semibold text-base sm:text-lg mb-1 sm:mb-2 block">Nama</label>
             <input 
               type="text" 
-              placeholder="Contoh: Fa'iz Maulana Habibi"
+              placeholder="Contoh: Agita Renata"
               className="w-full border-2 border-gray-200 rounded-xl px-3 sm:px-4 py-2.5 sm:py-3 focus:outline-none focus:border-[#1b7a70] transition-colors text-sm sm:text-base"
               value={formData.nama}
               onChange={(e) => setFormData({...formData, nama: e.target.value})}
             />
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+            <div>
+              <label className="text-[#1b7a70] font-semibold text-base sm:text-lg mb-1 sm:mb-2 block">Jenis Kelamin</label>
+              <select 
+                className="w-full border-2 border-gray-200 rounded-xl px-3 sm:px-4 py-2.5 sm:py-3 focus:outline-none focus:border-[#1b7a70] transition-colors bg-white appearance-none text-sm sm:text-base"
+                value={formData.jenis_kelamin}
+                onChange={(e) => setFormData({...formData, jenis_kelamin: e.target.value})}
+              >
+                <option value="" disabled>Pilih Jenis Kelamin</option>
+                <option value="Laki-laki">Laki-laki</option>
+                <option value="Perempuan">Perempuan</option>
+              </select>
+            </div>
+            <div>
+              <label className="text-[#1b7a70] font-semibold text-base sm:text-lg mb-1 sm:mb-2 block">Umur</label>
+              <input 
+                type="number" 
+                placeholder="Contoh: 20"
+                min="1"
+                max="100"
+                className="w-full border-2 border-gray-200 rounded-xl px-3 sm:px-4 py-2.5 sm:py-3 focus:outline-none focus:border-[#1b7a70] transition-colors text-sm sm:text-base"
+                value={formData.umur}
+                onChange={(e) => setFormData({...formData, umur: e.target.value})}
+              />
+            </div>
           </div>
 
           <div>
