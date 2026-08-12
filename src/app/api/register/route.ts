@@ -30,10 +30,12 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ success: false, error: "Invalid JSON" }, { status: 400 });
   }
 
-  const { nama, ttl, alamat, email, whatsapp, program, level, voucher_code } = body;
+  const { nama, jenis_kelamin, umur, ttl, alamat, email, whatsapp, program, level, voucher_code } = body;
 
   if (
     !nama || typeof nama !== "string" ||
+    !jenis_kelamin || typeof jenis_kelamin !== "string" ||
+    !umur || typeof umur !== "number" ||
     !ttl || typeof ttl !== "string" ||
     !alamat || typeof alamat !== "string" ||
     !email || typeof email !== "string" ||
@@ -90,17 +92,19 @@ export async function POST(req: NextRequest) {
   const totalBayar = Math.max(0, basePrice - discountAmount);
 
   const safeName = sanitize(nama);
-  const safeTtl = ttl ? sanitize(ttl) : "";
-  const safeAlamat = alamat ? sanitize(alamat) : "";
-  const safeEmail = email ? sanitize(email) : "";
+  const safeJK = sanitize(jenis_kelamin);
+  const safeUmur = Math.min(Math.max(Math.floor(umur), 1), 100);
+  const safeTtl = sanitize(ttl);
+  const safeAlamat = sanitize(alamat);
+  const safeEmail = sanitize(email);
   const safeWa = sanitize(whatsapp);
   const safeVoucher = voucher_code ? sanitize(voucher_code).toUpperCase() : null;
 
   try {
     const [result] = await pool.query<ResultSetHeader>(
-      `INSERT INTO west_leads (nama, ttl, alamat, whatsapp, email, program, level, voucher_code, discount_amount, total_bayar, status_bayar)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'Pending')`,
-      [safeName, safeTtl, safeAlamat, safeWa, safeEmail, program, level, safeVoucher, discountAmount, totalBayar]
+      `INSERT INTO west_leads (nama, jenis_kelamin, umur, ttl, alamat, whatsapp, email, program, level, voucher_code, discount_amount, total_bayar, status_bayar)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'Pending')`,
+      [safeName, safeJK, safeUmur, safeTtl, safeAlamat, safeWa, safeEmail, program, level, safeVoucher, discountAmount, totalBayar]
     );
 
     if (voucherId) {
