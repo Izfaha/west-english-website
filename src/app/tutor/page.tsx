@@ -33,13 +33,21 @@ const TUTORS_DATA = [
     experience: "3 Years experience of teaching English",
     imageUrl: "", 
   },
+  {
+    id: 5,
+    name: "Fa'iz Maulana H",
+    university: "Universitas Negeri Malang",
+    major: "Pendidikan Bahasa Inggris",
+    experience: "4 Years experience of teaching English",
+    imageUrl: "", 
+  },
 ];
 
 export default function TutorPage() {
   return (
     <main className="min-h-screen bg-[#72c2b3] pt-10 sm:pt-16 flex flex-col items-center overflow-x-hidden">
       
-      <h1 className="text-white text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold font-mono tracking-wide mb-10 sm:mb-16 text-center drop-shadow-md px-4">
+      <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-wide mb-10 sm:mb-16 text-center drop-shadow-md px-4 pb-2 bg-gradient-to-r from-white via-amber-300 to-white bg-clip-text text-transparent">
         Meet Our Tutors
       </h1>
 
@@ -71,7 +79,7 @@ export default function TutorPage() {
             <div className="flex-1 text-center sm:text-left flex flex-col justify-center">
               
               <div className="w-max mx-auto sm:mx-0 mb-2 sm:mb-3 border-b-[3px] border-black pb-1 sm:pb-1.5">
-                <h2 className="text-2xl sm:text-2xl md:text-[34px] font-bold text-black font-mono tracking-tight leading-none">
+                <h2 className="text-2xl sm:text-2xl md:text-[34px] font-bold text-black tracking-tight leading-none">
                   {tutor.name}
                 </h2>
               </div>
