@@ -1,17 +1,22 @@
 FROM node:20-alpine AS base
 
+# ========= DEPS installation =========
 FROM base AS deps
 WORKDIR /app
 COPY package.json yarn.lock ./
-RUN yarn install --frozen-lockfile
+RUN corepack enable && yarn install --frozen-lockfile
 
+# ========= BUILD app =========
 FROM base AS builder
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 ENV NEXT_TELEMETRY_DISABLED=1
-RUN yarn build
+ARG NEXT_PUBLIC_ADMIN_WA_NUMBER
+ENV NEXT_PUBLIC_ADMIN_WA_NUMBER=${NEXT_PUBLIC_ADMIN_WA_NUMBER}
+RUN corepack enable && yarn build
 
+# ========= PROD app =========
 FROM base AS runner
 WORKDIR /app
 ENV NODE_ENV=production
