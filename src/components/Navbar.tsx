@@ -45,7 +45,7 @@ export default function Navbar() {
             </Link>
           </div>
 
-          {/* Mobile Hamburger Button */}
+          {/* ini bagian Mobile Hamburger Button */}
           <button
             className="md:hidden p-2 text-[#198d83] hover:bg-gray-50 rounded-md focus:outline-none"
             onClick={() => setOpen(!open)}
@@ -77,7 +77,7 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Mobile Navigation Menu (Dropdown) */}
+      {/* ini bagian Mobile Navigation Menu (Dropdown) */}
       {open && (
         <div className="md:hidden bg-white px-6 pb-6 pt-2 space-y-4 shadow-lg border-t border-gray-100">
           <Link
