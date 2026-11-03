@@ -16,11 +16,10 @@ services:
       - DB_NAME=${DB_NAME}
     depends_on:
       - db
-    expose:
-      - "3000"
+    ports:
+      - "3000:3000"
     networks: 
       - west-internal-network
-      - reverse-proxy
   
   phpmyadmin:
     image: phpmyadmin
@@ -60,7 +59,6 @@ volumes:
 networks:
   # west-internal-network
   west-internal-network:
-    internal: true
-  reverse-proxy:
-    external: true
-    name: reverse-proxy
+  # reverse-proxy:
+  #   external: true
+  #   name: reverse-proxy

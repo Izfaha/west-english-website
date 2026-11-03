@@ -1,16 +1,16 @@
 services:
   db:
-    image: mariadb:10.6
     container_name: west_db
+    build: 
+      context: ./database
     restart: unless-stopped
     environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-rootpassword_west}
-      MYSQL_DATABASE: west_db
-      MYSQL_USER: west_user
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-west_password}
+      - MARIADB_ROOT_PASSWORD=${DB_PASSWORD:?DB_PASSWORD is required}
+      - MARIADB_DATABASE=${DB_NAME}
+      - MARIADB_USER=${DB_USER}
+      - MARIADB_PASSWORD=${DB_PASSWORD:?DB_PASSWORD is required}
     volumes:
       - db_data:/var/lib/mysql
-      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     ports:
       - "3307:3306"
     networks:
@@ -39,11 +39,11 @@ services:
     ports:
       - "3000:3000"
     environment:
-      - DB_HOST=db
-      - DB_PORT=3306
-      - DB_USER=west_user
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT}
+      - DB_USER=${DB_USER}
       - DB_PASSWORD=${MYSQL_PASSWORD:-west_password}
-      - DB_NAME=west_db
+      - DB_NAME=${DB_NAME}
       - NEXT_PUBLIC_ADMIN_WA_NUMBER=${NEXT_PUBLIC_ADMIN_WA_NUMBER:-6281234567890}
     volumes:
       - .:/app
