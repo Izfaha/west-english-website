@@ -11,7 +11,6 @@ export default function Navbar() {
     <nav className="bg-white sticky top-0 z-50 border-b border-gray-100 shadow-sm rounded-b-[3rem]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
-          
           {/* Logo Brand WEST */}
           <Link href="/" className="flex items-center">
             <Image
@@ -24,7 +23,7 @@ export default function Navbar() {
             />
           </Link>
 
-          {/* Desktop Navigation Links */}
+          {/* ini adalah bagian Desktop Navigation Links  */}
           <div className="hidden md:flex items-center gap-10 lg:gap-14">
             <Link
               href="/"
