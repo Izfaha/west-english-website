@@ -3,7 +3,7 @@ import { rateLimit, getClientIp } from "@/lib/rate-limit";
 import { getPool } from "@/lib/db";
 import { RowDataPacket, ResultSetHeader } from "mysql2";
 
-const PRICE_MAP: Record<string, number> = {
+export const PRICE_MAP: Record<string, number> = {
   "Kids / Month": 250000,
   "Teenager / Month": 250000,
   "Adult / Month": 250000,
@@ -12,9 +12,9 @@ const PRICE_MAP: Record<string, number> = {
   "Adult / 2 Weeks": 165000,
 };
 
-const VALID_LEVELS = ["Pre basic", "Basic", "Intermediate", "Advance"];
+export const VALID_LEVELS = ["Pre basic", "Basic", "Intermediate", "Advance"];
 
-function sanitize(str: string): string {
+export function sanitize(str: string): string {
   return str.replace(/[<>]/g, "").trim().slice(0, 500);
 }
 

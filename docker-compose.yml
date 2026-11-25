@@ -44,6 +44,9 @@ services:
       - DB_USER=${DB_USER}
       - DB_PASSWORD=${MYSQL_PASSWORD:-west_password}
       - DB_NAME=${DB_NAME}
+      - WEST_ADMIN_EMAIL
+      - WEST_ADMIN_PASSWORD_HASH
+      - WEST_ADMIN_NAME
       - NEXT_PUBLIC_ADMIN_WA_NUMBER=${NEXT_PUBLIC_ADMIN_WA_NUMBER:-6281234567890}
     volumes:
       - .:/app

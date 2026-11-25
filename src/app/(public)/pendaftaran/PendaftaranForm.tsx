@@ -2,7 +2,7 @@
 
 import { useState, useRef } from "react";
 import { useSearchParams } from "next/navigation";
-import AlertModal from "../../components/AlertModal";
+import AlertModal from "@/components/AlertModal";
 
 const BASE_PROGRAMS = [
   "Kids / Month",

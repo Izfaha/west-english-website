@@ -36,6 +36,46 @@ NEXT_PUBLIC_ADMIN_WA_NUMBER=6281234567890
 
 ---
 
+## Portal Admin
+
+Buka `/login` untuk masuk ke Dashboard, Kupon, Data Pendaftaran, dan Log Aktivitas. Semua akun portal memakai role Admin. Data demo menyiapkan dua akun di MariaDB. Akun Admin dari environment tetap didukung.
+
+1. Buat hash kata sandi dari terminal Bash. Simpan hasilnya di `WEST_ADMIN_PASSWORD_HASH` dalam `.env`.
+
+   ```bash
+   read -rsp 'Kata sandi Admin: ' west_password; printf '\n'
+   printf '%s' "$west_password" | node -e '
+     const { randomBytes, scryptSync } = require("node:crypto");
+     const password = require("node:fs").readFileSync(0);
+     const salt = randomBytes(16).toString("hex");
+     console.log(salt + ":" + scryptSync(password, salt, 64).toString("hex"));
+   '
+   unset west_password
+   ```
+
+2. Isi `WEST_ADMIN_EMAIL` dan, jika diperlukan, `WEST_ADMIN_NAME` di `.env`. Restart aplikasi setelah mengubah konfigurasi.
+3. Jika volume MariaDB sudah ada, jalankan `database/migrations/001_admin.sql` lalu `database/migrations/002_admin_accounts.sql` pada database WEST sebelum login. Sesi lama perlu login ulang setelah migrasi. Database baru mendapat tabel Admin dari `database/init.sql`.
+4. Jalankan aplikasi. Gunakan HTTPS di production agar cookie sesi dapat dikirim browser.
+
+Pencarian, filter, dan pagination dijalankan di server. Ekspor CSV mengikuti pencarian dan filter dari daftar pendaftaran. Log mencatat login, logout, dan pembuatan kupon.
+
+### Data demo untuk development
+
+Setelah migrasi, jalankan seed pada database development:
+
+```bash
+docker compose exec frontend node scripts/seed-demo.mjs
+```
+
+Jika menjalankan Next.js di luar Docker, pakai konfigurasi database lokal dengan `node --env-file=.env scripts/seed-demo.mjs`.
+
+| Email Admin | Kata sandi demo |
+|---|---|
+| `faiz.admin@west.test` | `WestDemoFaiz2026!` |
+| `amel.admin@west.test` | `WestDemoAmel2026!` |
+
+Seed menambah 20 pendaftar dan 30 voucher (15 tersedia, 10 terpakai, 5 kedaluwarsa). Pada database kosong dengan 10 baris per halaman, daftar pendaftar punya 2 halaman dan voucher punya 3 halaman. Seed dapat dijalankan ulang tanpa menggandakan data demo. Jalankan hanya pada database development atau demo terisolasi.
+
 ## Menjalankan dengan Docker
 
 ### 1. Development
@@ -107,33 +147,33 @@ App jalan di http://localhost:3000. Pastikan MariaDB sudah jalan dan `DB_HOST` d
 
 ## API Endpoints
 
-Semua endpoint bertipe `POST`, menerima JSON, dan menerapkan rate limit **10 request per menit per IP** (kecuali `/api/vouchers/generate`). Base URL: `http://localhost:3000`.
+Endpoint `POST` menerima JSON. Pendaftaran dan validasi kupon dibatasi 10 request per menit per IP. Pembuatan kupon memakai sesi Admin dan batas 10 request per menit per proses. Base URL lokal adalah `http://localhost:3000`.
 
 ### 1. `POST /api/vouchers/generate`
 
-Generate voucher bulk dengan kode unik random. Tidak butuh auth.
+Membuat kupon dengan kode acak unik. Login melalui `/login` terlebih dahulu. Untuk uji manual di lingkungan lokal, gunakan cookie sesi Admin yang aktif pada klien HTTP.
 
 **Request body (semua field opsional):**
 
 | Field | Type | Default | Keterangan |
 |:---|:---|:---|:---|
-| `jumlah` | number | `20` | Jumlah voucher yang dibuat |
-| `expires_at` | string | `null` | Tanggal kadaluarsa, format `YYYY-MM-DD HH:mm:ss` |
-| `discount_1bulan` | number | `51000` | Potongan untuk program bulanan |
-| `discount_2minggu` | number | `65000` | Potongan untuk program 2 minggu |
+| `jumlah` | number | `20` | Jumlah voucher yang dibuat (1–100) |
+| `expires_at` | string | `null` | Tanggal kedaluwarsa dalam UTC, format `YYYY-MM-DD HH:mm:ss` |
+| `discount_1bulan` | number | `51000` | Potongan untuk program bulanan (Rp0–Rp250.000) |
+| `discount_2minggu` | number | `65000` | Potongan untuk program 2 minggu (Rp0–Rp165.000) |
 
 **Contoh (curl):**
 
 ```bash
 # Default: 20 voucher, tanpa expiry
-curl -X POST http://localhost:3000/api/vouchers/generate \
+curl -b "west_admin_session=$west_admin_session" -X POST http://localhost:3000/api/vouchers/generate \
   -H "Content-Type: application/json" \
   -d '{}'
 ```
 
 ```bash
 # Custom jumlah, kadaluarsa, dan besaran diskon
-curl -X POST http://localhost:3000/api/vouchers/generate \
+curl -b "west_admin_session=$west_admin_session" -X POST http://localhost:3000/api/vouchers/generate \
   -H "Content-Type: application/json" \
   -d '{
     "jumlah": 50,
@@ -159,8 +199,10 @@ Format kode: `WEST-XXXXXXXX` — 8 karakter alfanumerik tanpa karakter ambigu `O
 
 | Status | Body |
 |:---|:---|
-| `400` | `{"error": "Invalid JSON"}` |
-| `500` | `{"error": "Gagal generate voucher", "detail": "..."}` |
+| `400` | Data permintaan tidak valid |
+| `401` | Sesi Admin diperlukan |
+| `429` | Terlalu banyak permintaan |
+| `500` | Kupon gagal dibuat |
 
 ---
 
@@ -303,6 +345,10 @@ Buka http://localhost:8082 (dev) atau http://localhost:8008 (prod), lalu lihat t
 | `used_at` | Waktu voucher dipakai |
 
 ---
+
+### 4. `GET /api/admin/pendaftaran/export`
+
+Unduh data pendaftaran sebagai CSV. Wajib menggunakan sesi Admin. Parameter opsional `q` mencari nama atau email, dan `filter` bisa diisi `Kids`, `Teenager`, atau `Adult`.
 
 ## Struktur API
 
